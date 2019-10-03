@@ -5,9 +5,9 @@
     <link rel="stylesheet" href="{{asset('css/bootstrap/dist/css/bootstrap.min.css')}}">
 </head>
 <body style="background-color: #012060;" class="py-5">
-    <div class="container-fluid p-3">
+    <div class="container">
         <div class="row">
-            <img src="{{asset('/images/uefa-logo.png')}}" class="mx-auto" width="200">
+            <img src="{{asset('/images/uefa-logo.png')}}" class="mx-auto" width="250">
         </div>
         <div class="row pt-5" style="color:white">
             @foreach ($groupsFirstHalf as $key => $group)
@@ -20,14 +20,8 @@
 						            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
 						                <img src='{{ asset("/images/$user[tLogos]") }}' class="mr-3 float-left" width="30">
 				            		</div>
-				            		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
+				            		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 text-right">
 					                    {{ $user['tName'] }}
-				            		</div>
-				            		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
-					                    {{ $user['tCountry'] }}
-				            		</div>
-									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
-					                    {{ $user['tDomesticVictory'] }}
 				            		</div>
 				            	</div>
 			                </div>
@@ -47,14 +41,8 @@
 						            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
 						                <img src='{{ asset("/images/$user[tLogos]") }}' class="mr-3 float-left" width="30">
 				            		</div>
-				            		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
+				            		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 text-right">
 					                    {{ $user['tName'] }}
-				            		</div>
-				            		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
-					                    {{ $user['tCountry'] }}
-				            		</div>
-									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
-					                    {{ $user['tDomesticVictory'] }}
 				            		</div>
 				            	</div>
 			                </div>
