@@ -15,40 +15,49 @@ class TeamDetailsController extends Controller
     public function index()
     {
         $teams = TeamDetails::all()->toArray();
-        $victoryTeams = array_slice($teams, 0, 7);
-        $teamsData = $teams;
+
         $groups = array("Group A","Group B","Group C","Group D","Group E","Group F","Group G","Group H");
         $groupsArray = array();
         $teamArr = array();
 
-        foreach ($groups as $value) {
-            $groupsArray[$value] = array();
-            while (count($groupsArray[$value]) < 4) {
+        for ($i = 0; $i < count($groups); $i++) {
+            $groupName = $groups[$i];
+            $groupsArray[$groupName] = array();
+
+            while (count($groupsArray[$groupName]) < 4) {
+                echo count($teams)."\t";
                 $teamsPosition = rand(0, count($teams)-1);
-                // $teamsPosition = getArrayElementPosition($teams, $teamsPositionArray);
                 $teamArr = $teams[$teamsPosition];
+                $groupCount = count($groupsArray[$groupName]);
                 
-                if ($teamArr["tDomesticVictory"] == "yes") {
-                    if (count($groupsArray[$value]) > 0 && $groupsArray[$value][0]["tDomesticVictory"] == "yes") {
-                        continue;
-                    } else {
-                        array_unshift($groupsArray[$value], $teamArr);
-                        // array_push($teamsPositionArray, $teamsPosition);
-                        unset($teams[$teamsPosition]);
-                        $teams = array_values($teams);
-                    }
+                if ($groupCount == 0) {
+                    array_push($groupsArray[$groupName], $teamArr);
+                    unset($teams[$teamsPosition]);
+                    $teams = array_values($teams);
                 } else {
-                    if (in_array("yes", array_column($groupsArray[$value], "tDomesticVictory")) && count($groupsArray[$value]) <= 3) {
-                        if (in_array($teamArr["tCountry"], array_column($groupsArray[$value], "tCountry"))) {
+                    $tCountryArr = array_column($groupsArray[$groupName], "tCountry");
+                    if ($teamArr["tDomesticVictory"] == "yes") {
+                        if ($groupsArray[$groupName][0]["tDomesticVictory"] == "yes") {
                             continue;
                         } else {
-                            array_push($groupsArray[$value], $teamArr);
-                            // array_push($teamsPositionArray, $teamsPosition);
+                            array_unshift($groupsArray[$groupName], $teamArr);
                             unset($teams[$teamsPosition]);
                             $teams = array_values($teams);
                         }
                     } else {
-                        continue;
+                        if (in_array($teamArr["tCountry"], $tCountryArr)) {
+                            continue;
+                        } else {
+                            if ($groupsArray[$groupName][0]["tDomesticVictory"] == 'yes') {
+                                array_push($groupsArray[$groupName], $teamArr);
+                                unset($teams[$teamsPosition]);
+                                $teams = array_values($teams);
+                            } elseif ($groupCount <= 2) {
+                                array_push($groupsArray[$groupName], $teamArr);
+                                unset($teams[$teamsPosition]);
+                                $teams = array_values($teams);
+                            }
+                        }
                     }
                 }
             }
